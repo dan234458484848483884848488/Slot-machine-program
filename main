@@ -1,0 +1,63 @@
+import random
+import time
+
+
+def spin_row():
+    symbols = ['🍒', '🍉', '🍋']
+
+    for spin in range(9, 0, -1):
+        row = [random.choice(symbols)  for spin in range(3)]
+        print(f"\r{row[0]} | {row[1]} | {row[2]}", end="")
+        time.sleep(0.5)
+
+    print()
+    return row
+
+
+
+
+
+
+def get_payout(row, bet):
+    final_spin_row = row
+    if final_spin_row[0] == final_spin_row[1] == final_spin_row[2]:
+        print("YOU WIN")
+        return bet * 3
+
+    else:
+        print("YOU LOSE")
+
+    return 0
+def main():
+    balance = 100
+
+    while True:
+        try:
+            print(f"Balance: ${balance}")
+            bet = int(input("Enter bet: "))
+
+            if bet > balance:
+                print("not enough moneh")
+                continue
+
+            elif bet <= 0:
+             print("cant bet negative nor 0")
+             continue
+
+
+            else:
+                balance -= bet
+                row = spin_row()
+                payout = get_payout(row, bet)
+                balance += payout
+        except ValueError:
+                print("Invalid input")
+
+
+if __name__ == '__main__':
+    main()
+
+
+
+#todo
+#add balance
